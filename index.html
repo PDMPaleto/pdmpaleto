@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoPrime — Concessionnaire</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --noir: #0D0D0F;
+  --noir2: #141416;
+  --sombre: #1C1C20;
+  --gris: #2A2A30;
+  --gris2: #3A3A42;
+  --bord: rgba(255,255,255,0.08);
+  --rouge: #D63031;
+  --rouge2: #E84545;
+  --blanc: #F4F4F6;
+  --texte: #A8A8B3;
+  --texte2: #D0D0DC;
+  --or: #F0A500;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;background:var(--noir);color:var(--blanc);overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:68px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;
+  background:rgba(13,13,15,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--bord);
+  transition:box-shadow .3s;
+}
+nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,0.5);}
+.nav-logo{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.5rem;font-weight:700;letter-spacing:.08em;
+  color:var(--blanc);text-decoration:none;display:flex;align-items:center;gap:10px;
+}
+.nav-logo span{color:var(--rouge);}
+.logo-dot{width:8px;height:8px;background:var(--rouge);border-radius:50%;display:inline-block;}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{
+  font-size:.78rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--texte);text-decoration:none;transition:color .25s;
+}
+.nav-links a:hover{color:var(--blanc);}
+.nav-right{display:flex;align-items:center;gap:16px;}
+.nav-admin-btn{
+  font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--texte);background:none;border:1px solid var(--gris2);
+  padding:8px 18px;cursor:pointer;transition:all .25s;font-family:'Barlow',sans-serif;
+}
+.nav-admin-btn:hover{color:var(--blanc);border-color:var(--texte);}
+.nav-cta{
+  font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--blanc);background:var(--rouge);border:none;
+  padding:10px 22px;cursor:pointer;transition:all .25s;font-family:'Barlow',sans-serif;
+  text-decoration:none;display:inline-block;
+}
+.nav-cta:hover{background:var(--rouge2);}
+
+/* ── HERO ── */
+.hero{
+  height:100vh;min-height:680px;
+  position:relative;display:flex;align-items:flex-end;
+  overflow:hidden;
+  background:#0D0D0F;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 60% 40%, rgba(214,48,49,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 70% at 80% 80%, rgba(240,165,0,0.04) 0%, transparent 60%),
+    linear-gradient(160deg, #0D0D0F 0%, #141416 50%, #1a0a0a 100%);
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size:60px 60px;
+  mask-image:linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+}
+.hero-content{
+  position:relative;z-index:2;
+  padding:0 80px 100px;
+  max-width:750px;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.7rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--rouge);margin-bottom:24px;
+}
+.hero-tag::before{content:'';width:24px;height:1px;background:var(--rouge);}
+.hero-h1{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(3.5rem,8vw,7rem);font-weight:700;line-height:.93;
+  letter-spacing:-.01em;color:var(--blanc);margin-bottom:28px;
+}
+.hero-h1 em{color:var(--rouge);font-style:normal;}
+.hero-sub{
+  font-size:1rem;line-height:1.75;color:var(--texte);
+  max-width:480px;margin-bottom:48px;font-weight:300;
+}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-rouge{
+  background:var(--rouge);color:var(--blanc);border:none;
+  padding:14px 36px;font-family:'Barlow',sans-serif;
+  font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  cursor:pointer;text-decoration:none;display:inline-block;transition:all .3s;
+}
+.btn-rouge:hover{background:var(--rouge2);transform:translateY(-2px);}
+.btn-outline{
+  background:transparent;color:var(--texte2);
+  border:1px solid var(--gris2);
+  padding:14px 36px;font-family:'Barlow',sans-serif;
+  font-size:.78rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  cursor:pointer;text-decoration:none;display:inline-block;transition:all .3s;
+}
+.btn-outline:hover{border-color:var(--texte2);color:var(--blanc);}
+.hero-stats{
+  position:absolute;right:80px;bottom:100px;z-index:2;
+  display:flex;flex-direction:column;gap:40px;align-items:flex-end;
+}
+.hero-stat-num{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:2.8rem;font-weight:700;color:var(--blanc);line-height:1;
+}
+.hero-stat-label{
+  font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--texte);margin-top:4px;
+}
+
+/* ── SECTIONS ── */
+.section{padding:100px 80px;max-width:1400px;margin:0 auto;}
+.section-sm{padding:80px 80px;max-width:1400px;margin:0 auto;}
+.sep{height:1px;background:var(--bord);max-width:1400px;margin:0 auto 0;}
+
+.section-label{
+  font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--rouge);font-weight:600;margin-bottom:12px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-label::after{content:'';flex:1;max-width:40px;height:1px;background:var(--rouge);}
+.section-h2{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(2rem,4vw,3.2rem);font-weight:700;
+  color:var(--blanc);line-height:1.05;margin-bottom:16px;
+}
+.section-h2 em{color:var(--rouge);font-style:normal;}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-top:60px;}
+.about-text p{
+  font-size:.95rem;line-height:1.85;color:var(--texte);
+  margin-bottom:20px;font-weight:300;
+}
+.about-text strong{color:var(--texte2);font-weight:500;}
+.about-kpis{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:40px;background:var(--bord);}
+.kpi{
+  background:var(--sombre);padding:28px 24px;
+}
+.kpi-num{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:2.4rem;font-weight:700;color:var(--rouge);line-height:1;margin-bottom:6px;
+}
+.kpi-label{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--texte);}
+
+.about-infos{display:flex;flex-direction:column;gap:20px;}
+.info-block{
+  background:var(--sombre);border:1px solid var(--bord);
+  padding:28px;display:flex;gap:20px;align-items:flex-start;
+  transition:border-color .3s;
+}
+.info-block:hover{border-color:rgba(214,48,49,0.3);}
+.info-icon{
+  width:44px;height:44px;background:rgba(214,48,49,0.1);
+  border-radius:4px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:1.1rem;
+}
+.info-title{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rouge);margin-bottom:6px;}
+.info-value{font-size:.95rem;color:var(--texte2);font-weight:400;line-height:1.5;}
+
+/* ── CATALOGUE ── */
+.catalogue-bg{background:var(--noir2);padding:100px 0;}
+.catalogue-inner{max-width:1400px;margin:0 auto;padding:0 80px;}
+.cat-tabs{
+  display:flex;gap:0;margin-top:48px;margin-bottom:48px;
+  border-bottom:1px solid var(--bord);flex-wrap:wrap;
+}
+.cat-tab{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.85rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  padding:14px 28px;cursor:pointer;color:var(--texte);
+  background:none;border:none;border-bottom:2px solid transparent;
+  margin-bottom:-1px;transition:all .25s;
+}
+.cat-tab:hover{color:var(--texte2);}
+.cat-tab.active{color:var(--rouge);border-bottom-color:var(--rouge);}
+
+.cat-count{
+  font-size:.75rem;color:var(--texte);margin-bottom:32px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.vehicles-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:2px;
+}
+.vehicle-card{
+  background:var(--sombre);border:1px solid var(--bord);
+  position:relative;overflow:hidden;
+  transition:border-color .3s, transform .3s;
+  cursor:pointer;
+}
+.vehicle-card:hover{border-color:rgba(214,48,49,0.4);transform:translateY(-3px);}
+.vehicle-card:hover .card-overlay{opacity:1;}
+.card-img{
+  width:100%;aspect-ratio:16/9;overflow:hidden;
+  background:var(--gris);position:relative;
+  display:flex;align-items:center;justify-content:center;
+}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+.vehicle-card:hover .card-img img{transform:scale(1.06);}
+.card-img-placeholder{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:3rem;opacity:.3;
+  background:linear-gradient(135deg, var(--gris) 0%, var(--gris2) 100%);
+}
+.card-cat-badge{
+  position:absolute;top:12px;left:12px;z-index:2;
+  font-size:.6rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+  padding:5px 12px;
+}
+.badge-sedan{background:rgba(214,48,49,0.85);color:#fff;}
+.badge-cayo{background:rgba(240,165,0,0.85);color:#000;}
+.badge-sandy{background:rgba(0,180,120,0.85);color:#fff;}
+.card-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(214,48,49,0.15), transparent);
+  opacity:0;transition:opacity .3s;
+}
+.card-body{padding:20px 22px 24px;}
+.card-name{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.25rem;font-weight:700;color:var(--blanc);
+  margin-bottom:6px;letter-spacing:.02em;
+}
+.card-sub{font-size:.75rem;color:var(--texte);margin-bottom:14px;}
+.card-footer{display:flex;align-items:center;justify-content:space-between;}
+.card-price{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.5rem;font-weight:700;color:var(--rouge);
+}
+.card-price span{font-size:.8rem;font-weight:400;color:var(--texte);margin-left:2px;}
+.card-btn{
+  font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  padding:8px 16px;background:transparent;border:1px solid var(--gris2);
+  color:var(--texte2);cursor:pointer;font-family:'Barlow',sans-serif;
+  transition:all .25s;
+}
+.card-btn:hover{border-color:var(--rouge);color:var(--rouge);}
+
+.cat-empty{
+  grid-column:1/-1;text-align:center;padding:80px 0;
+  color:var(--texte);font-size:.9rem;
+}
+
+/* ── LOCATION ── */
+.location-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:60px;border:1px solid var(--bord);}
+.loc-img{
+  background:var(--gris);position:relative;overflow:hidden;
+  min-height:400px;display:flex;align-items:center;justify-content:center;
+}
+.loc-img img{width:100%;height:100%;object-fit:cover;}
+.loc-img-placeholder{
+  width:100%;height:100%;min-height:400px;
+  background:linear-gradient(135deg,#1a1a20,#242430);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:12px;color:var(--texte);
+}
+.loc-img-placeholder .big-icon{font-size:3rem;opacity:.3;}
+.loc-img-placeholder p{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;opacity:.4;}
+.loc-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to right, transparent 60%, var(--sombre) 100%);
+}
+.loc-info{
+  background:var(--sombre);padding:60px 48px;
+  display:flex;flex-direction:column;justify-content:center;gap:32px;
+}
+.loc-info-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.8rem;font-weight:700;color:var(--blanc);margin-bottom:4px;
+}
+.loc-detail{display:flex;gap:16px;align-items:flex-start;}
+.loc-icon{
+  width:38px;height:38px;background:rgba(214,48,49,0.12);
+  border-radius:3px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:.9rem;margin-top:2px;
+}
+.loc-detail-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rouge);margin-bottom:4px;}
+.loc-detail-val{font-size:.9rem;color:var(--texte2);line-height:1.5;}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:60px;align-items:start;}
+.contact-form{display:flex;flex-direction:column;gap:2px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.field{display:flex;flex-direction:column;}
+.field label{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rouge);padding:14px 16px 0;background:var(--sombre);}
+.field input,.field textarea,.field select{
+  background:var(--sombre);border:1px solid transparent;border-top:none;
+  color:var(--blanc);font-family:'Barlow',sans-serif;font-size:.9rem;
+  padding:8px 16px 14px;outline:none;resize:none;
+  transition:border-color .25s;
+}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:rgba(214,48,49,0.4);}
+.field textarea{height:120px;}
+.field select option{background:var(--sombre);}
+.form-submit-wrap{display:flex;justify-content:flex-end;margin-top:8px;}
+
+.contact-right{}
+.contact-note{font-size:.85rem;line-height:1.8;color:var(--texte);font-weight:300;margin-bottom:32px;}
+.hours-list{display:flex;flex-direction:column;gap:2px;}
+.hour-row{
+  display:flex;justify-content:space-between;align-items:center;
+  background:var(--sombre);padding:14px 20px;font-size:.85rem;
+}
+.hour-day{color:var(--texte);}
+.hour-time{color:var(--texte2);font-weight:500;}
+.hour-row.closed .hour-time{color:var(--texte);opacity:.5;}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--noir2);border-top:1px solid var(--bord);
+  padding:48px 80px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;
+}
+.footer-logo{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.3rem;font-weight:700;color:var(--blanc);text-decoration:none;
+}
+.footer-logo span{color:var(--rouge);}
+.footer-copy{font-size:.72rem;color:var(--texte);opacity:.6;letter-spacing:.08em;}
+.footer-links{display:flex;gap:24px;}
+.footer-links a{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--texte);text-decoration:none;transition:color .25s;}
+.footer-links a:hover{color:var(--rouge);}
+
+/* ── MODAL LOGIN ── */
+.modal-bg{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.modal-bg.open{opacity:1;pointer-events:all;}
+.modal-box{
+  background:var(--sombre);border:1px solid var(--bord);
+  width:100%;max-width:420px;padding:48px;
+  position:relative;
+  transform:translateY(20px);transition:transform .3s;
+}
+.modal-bg.open .modal-box{transform:translateY(0);}
+.modal-close{
+  position:absolute;top:16px;right:20px;
+  background:none;border:none;color:var(--texte);font-size:1.2rem;cursor:pointer;
+  transition:color .25s;
+}
+.modal-close:hover{color:var(--blanc);}
+.modal-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.6rem;font-weight:700;color:var(--blanc);margin-bottom:6px;
+}
+.modal-sub{font-size:.8rem;color:var(--texte);margin-bottom:32px;}
+.modal-field{margin-bottom:16px;}
+.modal-field label{display:block;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rouge);margin-bottom:8px;}
+.modal-field input{
+  width:100%;background:var(--gris);border:1px solid var(--bord);
+  color:var(--blanc);font-family:'Barlow',sans-serif;font-size:.9rem;
+  padding:12px 16px;outline:none;transition:border-color .25s;
+}
+.modal-field input:focus{border-color:rgba(214,48,49,0.5);}
+.modal-err{
+  font-size:.78rem;color:var(--rouge);margin-top:12px;
+  background:rgba(214,48,49,0.08);padding:10px 14px;display:none;
+}
+.modal-err.show{display:block;}
+.modal-submit{width:100%;margin-top:24px;}
+
+/* ── ADMIN PANEL ── */
+#admin-panel{
+  display:none;
+  position:fixed;inset:0;z-index:400;
+  background:var(--noir);overflow-y:auto;
+}
+#admin-panel.open{display:block;}
+.admin-header{
+  background:var(--noir2);border-bottom:1px solid var(--bord);
+  padding:0 48px;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:10;
+}
+.admin-logo{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.2rem;font-weight:700;color:var(--blanc);display:flex;align-items:center;gap:10px;
+}
+.admin-badge{
+  font-size:.6rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+  background:rgba(214,48,49,0.2);color:var(--rouge);padding:4px 10px;border-radius:2px;
+}
+.admin-header-right{display:flex;gap:12px;align-items:center;}
+.admin-user{font-size:.78rem;color:var(--texte);}
+.btn-sm{
+  font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  padding:8px 16px;cursor:pointer;font-family:'Barlow',sans-serif;transition:all .25s;
+}
+.btn-sm-rouge{background:var(--rouge);color:#fff;border:none;}
+.btn-sm-rouge:hover{background:var(--rouge2);}
+.btn-sm-outline{background:none;border:1px solid var(--gris2);color:var(--texte2);}
+.btn-sm-outline:hover{border-color:var(--texte2);color:var(--blanc);}
+.btn-sm-ghost{background:none;border:1px solid transparent;color:var(--texte);}
+.btn-sm-ghost:hover{color:var(--rouge);}
+
+.admin-body{max-width:1200px;margin:0 auto;padding:48px;}
+.admin-section-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.4rem;font-weight:700;color:var(--blanc);margin-bottom:24px;
+}
+
+/* Formulaire ajout/édition */
+.admin-form-card{
+  background:var(--sombre);border:1px solid var(--bord);padding:36px;margin-bottom:48px;
+}
+.admin-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.admin-field{display:flex;flex-direction:column;gap:8px;}
+.admin-field.full{grid-column:1/-1;}
+.admin-field label{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--texte);font-weight:500;}
+.admin-field input,.admin-field select,.admin-field textarea{
+  background:var(--gris);border:1px solid var(--bord);
+  color:var(--blanc);font-family:'Barlow',sans-serif;font-size:.88rem;
+  padding:10px 14px;outline:none;resize:vertical;
+  transition:border-color .25s;
+}
+.admin-field input:focus,.admin-field select:focus,.admin-field textarea:focus{border-color:rgba(214,48,49,0.4);}
+.admin-field select option{background:var(--gris);}
+.admin-form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;grid-column:1/-1;}
+
+/* Table véhicules */
+.admin-table-wrap{background:var(--sombre);border:1px solid var(--bord);overflow:hidden;}
+.admin-table-toolbar{
+  padding:18px 24px;border-bottom:1px solid var(--bord);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.admin-table-toolbar h3{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--blanc);}
+.admin-table{width:100%;border-collapse:collapse;}
+.admin-table th{
+  background:var(--gris);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--texte);padding:12px 16px;text-align:left;font-weight:600;border-bottom:1px solid var(--bord);
+}
+.admin-table td{padding:14px 16px;border-bottom:1px solid var(--bord);font-size:.85rem;color:var(--texte2);vertical-align:middle;}
+.admin-table tr:last-child td{border-bottom:none;}
+.admin-table tr:hover td{background:rgba(255,255,255,0.02);}
+.table-img{width:60px;height:40px;object-fit:cover;background:var(--gris);border-radius:2px;}
+.table-img-ph{width:60px;height:40px;background:var(--gris);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+.table-name{font-weight:600;color:var(--blanc);}
+.table-price{color:var(--rouge);font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;}
+.table-actions{display:flex;gap:8px;}
+.badge-sm{
+  font-size:.58rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 8px;border-radius:2px;
+}
+
+/* Notifications */
+.toast{
+  position:fixed;bottom:32px;right:32px;z-index:9999;
+  background:var(--sombre);border:1px solid var(--bord);border-left:3px solid var(--rouge);
+  padding:16px 24px;font-size:.82rem;color:var(--texte2);
+  transform:translateX(120%);transition:transform .3s ease;
+  font-family:'Barlow',sans-serif;max-width:320px;
+}
+.toast.show{transform:translateX(0);}
+.toast.success{border-left-color:#00b894;}
+
+/* Modal détail véhicule */
+.vehicle-modal-box{max-width:600px;}
+.vehicle-modal-img{width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--gris);margin-bottom:24px;display:flex;align-items:center;justify-content:center;}
+.vehicle-modal-img img{width:100%;height:100%;object-fit:cover;}
+.vehicle-modal-name{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:700;color:var(--blanc);margin-bottom:8px;}
+.vehicle-modal-price{font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:700;color:var(--rouge);margin-bottom:20px;}
+.vehicle-modal-infos{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:24px;}
+.vm-info{background:var(--gris);padding:14px 18px;}
+.vm-info-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--texte);margin-bottom:4px;}
+.vm-info-val{font-size:.88rem;color:var(--texte2);}
+.vehicle-modal-desc{font-size:.88rem;line-height:1.75;color:var(--texte);margin-bottom:28px;}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.vis{opacity:1;transform:none;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .hero-content{padding:0 24px 80px;}
+  .hero-stats{right:24px;bottom:80px;}
+  .section,.section-sm{padding:60px 24px;}
+  .catalogue-inner{padding:0 24px;}
+  .about-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+  .location-grid{grid-template-columns:1fr;}
+  footer{padding:32px 24px;flex-direction:column;text-align:center;}
+  .admin-body{padding:24px;}
+  .admin-form-grid{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo"><span class="logo-dot"></span>Auto<span>Prime</span></a>
+  <ul class="nav-links">
+    <li><a href="#catalogue">Catalogue</a></li>
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#location">Localisation</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-admin-btn" onclick="openLogin()">Espace employé</button>
+    <a href="#contact" class="nav-cta">Nous contacter</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Concessionnaire certifié</div>
+    <h1 class="hero-h1">Votre prochain<br>véhicule vous<br><em>attend.</em></h1>
+    <p class="hero-sub">AutoPrime vous propose une sélection rigoureuse de véhicules dans les secteurs de Cayo Perico, Sandy Shore et au-delà. Qualité, fiabilité, prix justes.</p>
+    <div class="hero-btns">
+      <a href="#catalogue" class="btn-rouge">Voir le catalogue</a>
+      <a href="#contact" class="btn-outline">Prendre contact</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-num" id="stat-count">—</div>
+      <div class="hero-stat-label">Véhicules en stock</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">3</div>
+      <div class="hero-stat-label">Catégories</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">100%</div>
+      <div class="hero-stat-label">Satisfaction client</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CATALOGUE ── -->
+<div id="catalogue" class="catalogue-bg">
+  <div class="catalogue-inner">
+    <div class="reveal">
+      <div class="section-label">Stock disponible</div>
+      <h2 class="section-h2">Notre <em>catalogue</em></h2>
+    </div>
+    <div class="cat-tabs reveal">
+      <button class="cat-tab active" onclick="filterCat('all',this)">Tout le stock</button>
+      <button class="cat-tab" onclick="filterCat('Sedans',this)">Sedans</button>
+      <button class="cat-tab" onclick="filterCat('Véhicules - Cayo Perico',this)">Cayo Perico</button>
+      <button class="cat-tab" onclick="filterCat('Véhicules - Sandy Shore',this)">Sandy Shore</button>
+    </div>
+    <div class="cat-count reveal">
+      <span id="cat-count-text">Tous les véhicules</span>
+    </div>
+    <div class="vehicles-grid reveal" id="vehicles-grid"></div>
+  </div>
+</div>
+
+<!-- ── À PROPOS ── -->
+<div id="about">
+  <div class="sep"></div>
+  <div class="section">
+    <div class="reveal">
+      <div class="section-label">Qui sommes-nous</div>
+      <h2 class="section-h2">Un concessionnaire<br>de <em>confiance</em></h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>Fondé il y a plusieurs années, <strong>AutoPrime</strong> s'est imposé comme la référence en matière d'achat automobile dans la région. Nous sélectionnons chaque véhicule avec rigueur pour vous garantir une qualité irréprochable.</p>
+        <p>Notre équipe passionnée vous accompagne à chaque étape de votre achat — de la première visite jusqu'à la remise des clés. Chez nous, <strong>pas de mauvaises surprises</strong>, que des bonnes.</p>
+        <p>Que vous cherchiez une berline élégante pour vos déplacements quotidiens, ou un véhicule adapté aux terrains exigeants de Sandy Shore ou Cayo Perico, nous avons ce qu'il vous faut.</p>
+        <div class="about-kpis">
+          <div class="kpi"><div class="kpi-num">500+</div><div class="kpi-label">Véhicules vendus</div></div>
+          <div class="kpi"><div class="kpi-num">5★</div><div class="kpi-label">Note moyenne</div></div>
+          <div class="kpi"><div class="kpi-num">8 ans</div><div class="kpi-label">D'expérience</div></div>
+          <div class="kpi"><div class="kpi-num">3</div><div class="kpi-label">Zones couvertes</div></div>
+        </div>
+      </div>
+      <div class="about-infos reveal">
+        <div class="info-block">
+          <div class="info-icon">📍</div>
+          <div>
+            <div class="info-title">Adresse</div>
+            <div class="info-value">Route Principale, Zone Commerciale<br>Sandy Shore, San Andreas</div>
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="info-icon">📞</div>
+          <div>
+            <div class="info-title">Téléphone</div>
+            <div class="info-value">+1 (555) 010-4200</div>
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="info-icon">✉️</div>
+          <div>
+            <div class="info-title">Email</div>
+            <div class="info-value">contact@autoprime-sa.com</div>
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="info-icon">🕐</div>
+          <div>
+            <div class="info-title">Horaires</div>
+            <div class="info-value">Lundi – Vendredi : 09h00 – 19h00<br>Samedi : 10h00 – 17h00<br>Dimanche : Fermé</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── LOCALISATION ── -->
+<div id="location">
+  <div class="sep"></div>
+  <div class="section">
+    <div class="reveal">
+      <div class="section-label">Nous trouver</div>
+      <h2 class="section-h2">Notre <em>emplacement</em></h2>
+    </div>
+    <div class="location-grid reveal" style="margin-top:48px;">
+      <div class="loc-img">
+        <!-- Remplacez l'URL ci-dessous par votre photo de lieu -->
+        <div class="loc-img-placeholder">
+          <div class="big-icon">🏢</div>
+          <p>Photo de la concession</p>
+          <p style="font-size:.65rem;opacity:.3;margin-top:4px;">Remplacer par votre image</p>
+        </div>
+      </div>
+      <div class="loc-info">
+        <div>
+          <div class="loc-info-title">AutoPrime Concessionnaire</div>
+          <p style="font-size:.8rem;color:var(--texte);margin-top:6px;line-height:1.6;">Notre showroom principal, situé en plein cœur de la zone commerciale.</p>
+        </div>
+        <div class="loc-detail">
+          <div class="loc-icon">📍</div>
+          <div>
+            <div class="loc-detail-label">Adresse</div>
+            <div class="loc-detail-val">Route Principale, Zone Commerciale<br>Sandy Shore, San Andreas</div>
+          </div>
+        </div>
+        <div class="loc-detail">
+          <div class="loc-icon">🚗</div>
+          <div>
+            <div class="loc-detail-label">Accès & Parking</div>
+            <div class="loc-detail-val">Parking gratuit sur place · 50 places<br>Accès autoroute : sortie 12</div>
+          </div>
+        </div>
+        <div class="loc-detail">
+          <div class="loc-icon">📞</div>
+          <div>
+            <div class="loc-detail-label">Téléphone direct</div>
+            <div class="loc-detail-val">+1 (555) 010-4200</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CONTACT ── -->
+<div id="contact">
+  <div class="sep"></div>
+  <div class="section">
+    <div class="reveal">
+      <div class="section-label">Écrivez-nous</div>
+      <h2 class="section-h2">Prendre <em>contact</em></h2>
+    </div>
+    <div class="contact-grid">
+      <form class="contact-form reveal" onsubmit="submitContact(event)">
+        <div class="form-row">
+          <div class="field">
+            <label>Prénom</label>
+            <input type="text" placeholder="Jean" required>
+          </div>
+          <div class="field">
+            <label>Nom</label>
+            <input type="text" placeholder="Dupont" required>
+          </div>
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" placeholder="jean@exemple.com" required>
+        </div>
+        <div class="field">
+          <label>Sujet</label>
+          <select>
+            <option>Demande d'information sur un véhicule</option>
+            <option>Essai routier</option>
+            <option>Financement</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Message</label>
+          <textarea placeholder="Votre message..." required></textarea>
+        </div>
+        <div class="form-submit-wrap">
+          <button type="submit" class="btn-rouge">Envoyer le message</button>
+        </div>
+      </form>
+      <div class="contact-right reveal">
+        <p class="contact-note">Notre équipe répond à toutes les demandes dans un délai de <strong style="color:var(--texte2)">24 heures ouvrées</strong>. N'hésitez pas à nous préciser le modèle qui vous intéresse pour un traitement plus rapide.</p>
+        <div class="hours-list">
+          <div class="hour-row"><span class="hour-day">Lundi – Jeudi</span><span class="hour-time">09h00 – 19h00</span></div>
+          <div class="hour-row"><span class="hour-day">Vendredi</span><span class="hour-time">09h00 – 18h00</span></div>
+          <div class="hour-row"><span class="hour-day">Samedi</span><span class="hour-time">10h00 – 17h00</span></div>
+          <div class="hour-row closed"><span class="hour-day">Dimanche</span><span class="hour-time">Fermé</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <a href="#" class="footer-logo">Auto<span>Prime</span></a>
+  <div class="footer-copy">© 2026 AutoPrime Concessionnaire — Tous droits réservés</div>
+  <div class="footer-links">
+    <a href="#">Mentions légales</a>
+    <a href="#">Politique de confidentialité</a>
+  </div>
+</footer>
+
+<!-- ── MODAL LOGIN ── -->
+<div class="modal-bg" id="login-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeLogin()">✕</button>
+    <div class="modal-title">Espace Employé</div>
+    <div class="modal-sub">Connexion réservée au personnel AutoPrime</div>
+    <div class="modal-field">
+      <label>Identifiant</label>
+      <input type="text" id="login-user" placeholder="identifiant" autocomplete="off">
+    </div>
+    <div class="modal-field">
+      <label>Mot de passe</label>
+      <input type="password" id="login-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <div class="modal-err" id="login-err">Identifiant ou mot de passe incorrect.</div>
+    <button class="btn-rouge modal-submit" onclick="doLogin()">Se connecter</button>
+  </div>
+</div>
+
+<!-- ── MODAL DÉTAIL VÉHICULE ── -->
+<div class="modal-bg" id="vehicle-modal">
+  <div class="modal-box vehicle-modal-box">
+    <button class="modal-close" onclick="closeVehicleModal()">✕</button>
+    <div id="vehicle-modal-content"></div>
+  </div>
+</div>
+
+<!-- ── ADMIN PANEL ── -->
+<div id="admin-panel">
+  <div class="admin-header">
+    <div class="admin-logo">AutoPrime <span class="admin-badge">Admin</span></div>
+    <div class="admin-header-right">
+      <span class="admin-user">👤 Connecté en tant qu'admin</span>
+      <button class="btn-sm btn-sm-outline" onclick="closeAdmin()">← Retour au site</button>
+      <button class="btn-sm btn-sm-ghost" onclick="logout()">Déconnexion</button>
+    </div>
+  </div>
+
+  <div class="admin-body">
+
+    <!-- Formulaire ajout / édition -->
+    <div class="admin-form-card" id="admin-form-card">
+      <div class="admin-section-title" id="form-title">➕ Ajouter un véhicule</div>
+      <input type="hidden" id="edit-id" value="">
+      <div class="admin-form-grid">
+        <div class="admin-field">
+          <label>Nom du véhicule *</label>
+          <input type="text" id="f-name" placeholder="Ex: Benefactor Schafter V12">
+        </div>
+        <div class="admin-field">
+          <label>Prix (ex: 85 000 $) *</label>
+          <input type="text" id="f-price" placeholder="85 000 $">
+        </div>
+        <div class="admin-field">
+          <label>Catégorie *</label>
+          <select id="f-cat">
+            <option value="Sedans">Sedans</option>
+            <option value="Véhicules - Cayo Perico">Véhicules - Cayo Perico</option>
+            <option value="Véhicules - Sandy Shore">Véhicules - Sandy Shore</option>
+          </select>
+        </div>
+        <div class="admin-field">
+          <label>URL de l'image</label>
+          <input type="text" id="f-img" placeholder="https://... (laisser vide pour placeholder)">
+        </div>
+        <div class="admin-field full">
+          <label>Description courte</label>
+          <textarea id="f-desc" rows="2" placeholder="Description optionnelle du véhicule..."></textarea>
+        </div>
+        <div class="admin-form-actions">
+          <button class="btn-sm btn-sm-outline" onclick="resetForm()" id="cancel-btn" style="display:none">Annuler</button>
+          <button class="btn-sm btn-sm-rouge" onclick="saveVehicle()">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table des véhicules -->
+    <div class="admin-table-wrap">
+      <div class="admin-table-toolbar">
+        <h3>Véhicules en catalogue (<span id="admin-count">0</span>)</h3>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Nom</th>
+              <th>Catégorie</th>
+              <th>Prix</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===== DONNÉES PAR DÉFAUT ===== */
+const DEFAULT_VEHICLES = [
+  {id:1, name:"Benefactor Schafter V12", cat:"Sedans", price:"85 000 $", img:"https://placehold.co/600x338/1C1C20/D63031?text=Schafter+V12", desc:"Berline de luxe, parfaite pour les déplacements urbains. Intérieur premium, confort absolu."},
+  {id:2, name:"Enus Cognoscenti", cat:"Sedans", price:"74 000 $", img:"https://placehold.co/600x338/1C1C20/F0A500?text=Cognoscenti", desc:"Symbole de prestige et d'élégance. Idéale pour les occasions qui le méritent."},
+  {id:3, name:"Übermacht Sentinel XS", cat:"Sedans", price:"63 000 $", img:"https://placehold.co/600x338/1C1C20/FFFFFF?text=Sentinel+XS", desc:"Berline sportive au style affûté. Dynamique et sobre à la fois."},
+  {id:4, name:"Lampadati Felon GT", cat:"Sedans", price:"91 000 $", img:"https://placehold.co/600x338/1C1C20/D63031?text=Felon+GT", desc:"Le compromis parfait entre gran turismo et usage quotidien."},
+  {id:5, name:"Pegassi Toros", cat:"Véhicules - Cayo Perico", price:"535 000 $", img:"https://placehold.co/600x338/141416/F0A500?text=Toros", desc:"SUV de haute performance adapté aux terrains difficiles de Cayo Perico."},
+  {id:6, name:"Ocelot Pariah", cat:"Véhicules - Cayo Perico", price:"130 000 $", img:"https://placehold.co/600x338/141416/D63031?text=Pariah", desc:"Supercar légère et agile, taillée pour la vitesse sous les palmiers."},
+  {id:7, name:"Grotti Furia", cat:"Véhicules - Cayo Perico", price:"1 900 000 $", img:"https://placehold.co/600x338/141416/FFFFFF?text=Furia", desc:"Hypercar exclusive, réservée aux connaisseurs. La performance ultime à Cayo."},
+  {id:8, name:"Bravado Banshee 900R", cat:"Véhicules - Sandy Shore", price:"565 000 $", img:"https://placehold.co/600x338/1C1C20/00b894?text=Banshee+900R", desc:"Muscle car boostée, idéale pour les longues lignes droites du désert."},
+  {id:9, name:"Vapid Dominator GTX", cat:"Véhicules - Sandy Shore", price:"248 000 $", img:"https://placehold.co/600x338/1C1C20/F0A500?text=Dominator+GTX", desc:"Un classique américain remis au goût du jour. Robuste et fiable."},
+  {id:10, name:"Canis Mesa Grande", cat:"Véhicules - Sandy Shore", price:"390 000 $", img:"https://placehold.co/600x338/1C1C20/D63031?text=Mesa+Grande", desc:"Le 4x4 de référence pour les pistes et les plaines de Sandy Shore."},
+];
+
+/* ===== STATE ===== */
+let vehicles = [];
+let currentFilter = 'all';
+const CREDS = { user: 'admin', pass: 'AutoPrime2026' };
+
+/* ===== INIT ===== */
+function init() {
+  const saved = localStorage.getItem('autoprime_vehicles');
+  vehicles = saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(DEFAULT_VEHICLES));
+  renderGrid();
+  updateStatCount();
+  setupReveal();
+  window.addEventListener('scroll', () => {
+    document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 40);
+  });
+}
+
+function save() { localStorage.setItem('autoprime_vehicles', JSON.stringify(vehicles)); }
+
+/* ===== CATALOGUE ===== */
+function catBadgeClass(cat) {
+  if (cat === 'Sedans') return 'badge-sedan';
+  if (cat === 'Véhicules - Cayo Perico') return 'badge-cayo';
+  return 'badge-sandy';
+}
+function catShort(cat) {
+  if (cat === 'Sedans') return 'Sedan';
+  if (cat === 'Véhicules - Cayo Perico') return 'Cayo Perico';
+  return 'Sandy Shore';
+}
+
+function renderGrid() {
+  const grid = document.getElementById('vehicles-grid');
+  const list = currentFilter === 'all' ? vehicles : vehicles.filter(v => v.cat === currentFilter);
+  const countEl = document.getElementById('cat-count-text');
+  countEl.textContent = `${list.length} véhicule${list.length!==1?'s':''} ${currentFilter==='all' ? 'en stock' : '— ' + catShort(currentFilter)}`;
+  if (list.length === 0) {
+    grid.innerHTML = `<div class="cat-empty">Aucun véhicule dans cette catégorie pour le moment.</div>`;
+    return;
+  }
+  grid.innerHTML = list.map(v => `
+    <div class="vehicle-card" onclick="openVehicleModal(${v.id})">
+      <div class="card-img">
+        ${v.img ? `<img src="${v.img}" alt="${v.name}" onerror="this.parentElement.innerHTML='<div class=\'card-img-placeholder\'>🚗</div>'">` : '<div class="card-img-placeholder">🚗</div>'}
+        <span class="card-cat-badge ${catBadgeClass(v.cat)}">${catShort(v.cat)}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">${v.name}</div>
+        <div class="card-sub">${v.cat}</div>
+        <div class="card-footer">
+          <div class="card-price">${v.price}</div>
+          <button class="card-btn" onclick="event.stopPropagation();openVehicleModal(${v.id})">Voir le détail →</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterCat(cat, btn) {
+  currentFilter = cat;
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderGrid();
+}
+
+function updateStatCount() {
+  document.getElementById('stat-count').textContent = vehicles.length;
+}
+
+/* ===== MODAL VÉHICULE ===== */
+function openVehicleModal(id) {
+  const v = vehicles.find(x => x.id === id);
+  if (!v) return;
+  document.getElementById('vehicle-modal-content').innerHTML = `
+    <div class="vehicle-modal-img">
+      ${v.img ? `<img src="${v.img}" alt="${v.name}">` : '<div style="width:100%;aspect-ratio:16/9;background:var(--gris);display:flex;align-items:center;justify-content:center;font-size:3rem">🚗</div>'}
+    </div>
+    <div class="vehicle-modal-name">${v.name}</div>
+    <div class="vehicle-modal-price">${v.price}</div>
+    <div class="vehicle-modal-infos">
+      <div class="vm-info"><div class="vm-info-label">Catégorie</div><div class="vm-info-val">${v.cat}</div></div>
+      <div class="vm-info"><div class="vm-info-label">Disponibilité</div><div class="vm-info-val" style="color:#00b894">En stock ✓</div></div>
+    </div>
+    ${v.desc ? `<div class="vehicle-modal-desc">${v.desc}</div>` : ''}
+    <a href="#contact" class="btn-rouge" onclick="closeVehicleModal()" style="display:inline-block">Demander un essai →</a>
+  `;
+  openModal('vehicle-modal');
+}
+function closeVehicleModal() { closeModal('vehicle-modal'); }
+
+/* ===== MODALS ===== */
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.modal-bg').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) { m.classList.remove('open'); document.body.style.overflow = ''; }});
+});
+
+/* ===== LOGIN ===== */
+function openLogin() { openModal('login-modal'); }
+function closeLogin() { closeModal('login-modal'); document.getElementById('login-err').classList.remove('show'); }
+function doLogin() {
+  const u = document.getElementById('login-user').value.trim();
+  const p = document.getElementById('login-pass').value;
+  if (u === CREDS.user && p === CREDS.pass) {
+    closeLogin();
+    openAdmin();
+  } else {
+    document.getElementById('login-err').classList.add('show');
+  }
+}
+function logout() { closeAdmin(); showToast('Déconnecté.'); }
+
+/* ===== ADMIN ===== */
+function openAdmin() {
+  document.getElementById('admin-panel').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderAdminTable();
+}
+function closeAdmin() {
+  document.getElementById('admin-panel').classList.remove('open');
+  document.body.style.overflow = '';
+  renderGrid();
+  updateStatCount();
+}
+
+function renderAdminTable() {
+  const tbody = document.getElementById('admin-table-body');
+  document.getElementById('admin-count').textContent = vehicles.length;
+  if (vehicles.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--texte);padding:40px">Aucun véhicule — ajoutez-en un ci-dessus.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = vehicles.map(v => `
+    <tr>
+      <td>${v.img ? `<img class="table-img" src="${v.img}" onerror="this.outerHTML='<div class=table-img-ph>🚗</div>'">` : '<div class="table-img-ph">🚗</div>'}</td>
+      <td><span class="table-name">${v.name}</span></td>
+      <td><span class="badge-sm ${catBadgeClass(v.cat)}">${catShort(v.cat)}</span></td>
+      <td><span class="table-price">${v.price}</span></td>
+      <td><div class="table-actions">
+        <button class="btn-sm btn-sm-outline" onclick="editVehicle(${v.id})">Modifier</button>
+        <button class="btn-sm btn-sm-ghost" onclick="deleteVehicle(${v.id})" style="color:var(--rouge)">Supprimer</button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+function saveVehicle() {
+  const name = document.getElementById('f-name').value.trim();
+  const price = document.getElementById('f-price').value.trim();
+  const cat = document.getElementById('f-cat').value;
+  const img = document.getElementById('f-img').value.trim();
+  const desc = document.getElementById('f-desc').value.trim();
+  const editId = document.getElementById('edit-id').value;
+
+  if (!name || !price) { showToast('Nom et prix requis.'); return; }
+
+  if (editId) {
+    const idx = vehicles.findIndex(v => v.id === parseInt(editId));
+    if (idx !== -1) vehicles[idx] = { ...vehicles[idx], name, price, cat, img, desc };
+    showToast('Véhicule mis à jour ✓', true);
+  } else {
+    const newId = vehicles.length > 0 ? Math.max(...vehicles.map(v => v.id)) + 1 : 1;
+    vehicles.push({ id: newId, name, price, cat, img, desc });
+    showToast('Véhicule ajouté ✓', true);
+  }
+  save();
+  resetForm();
+  renderAdminTable();
+}
+
+function editVehicle(id) {
+  const v = vehicles.find(x => x.id === id);
+  if (!v) return;
+  document.getElementById('edit-id').value = v.id;
+  document.getElementById('f-name').value = v.name;
+  document.getElementById('f-price').value = v.price;
+  document.getElementById('f-cat').value = v.cat;
+  document.getElementById('f-img').value = v.img || '';
+  document.getElementById('f-desc').value = v.desc || '';
+  document.getElementById('form-title').textContent = '✏️ Modifier le véhicule';
+  document.getElementById('cancel-btn').style.display = 'inline-block';
+  document.getElementById('admin-form-card').scrollIntoView({ behavior: 'smooth' });
+}
+
+function deleteVehicle(id) {
+  if (!confirm('Supprimer ce véhicule du catalogue ?')) return;
+  vehicles = vehicles.filter(v => v.id !== id);
+  save();
+  renderAdminTable();
+  showToast('Véhicule supprimé.');
+}
+
+function resetForm() {
+  document.getElementById('edit-id').value = '';
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-price').value = '';
+  document.getElementById('f-cat').value = 'Sedans';
+  document.getElementById('f-img').value = '';
+  document.getElementById('f-desc').value = '';
+  document.getElementById('form-title').textContent = '➕ Ajouter un véhicule';
+  document.getElementById('cancel-btn').style.display = 'none';
+}
+
+/* ===== CONTACT ===== */
+function submitContact(e) {
+  e.preventDefault();
+  showToast('Message envoyé ! Nous vous répondrons sous 24h.', true);
+  e.target.reset();
+}
+
+/* ===== TOAST ===== */
+function showToast(msg, success = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (success ? ' success' : '');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+/* ===== REVEAL ===== */
+function setupReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('vis'), i * 80); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+init();
+</script>
+</body>
+</html>
